@@ -24,12 +24,17 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+
+      - name: Verify SDK Manager
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
           which sdkmanager
-          yes | sdkmanager --licenses || true
+          sdkmanager --version
 
-      - name: Install Android SDK packages
+      - name: Install SDK 35
         run: |
           sdkmanager --install \
             "platforms;android-35" \
